@@ -1,54 +1,61 @@
-class Pet 
-    # Defines a class named Pet
+# frozen_string_literal: true
 
-    attr_accessor :name 
-    # Creates both getter and setter methods for @name
+class Pet
+  # Defines a class named Pet
 
-    attr_reader :species
-    # Creates a getter method for @species (no setter)
+  attr_accessor :name
+  # Creates both getter and setter methods for @name
 
-    @@all_pets = []
-    # Initializes a class variable @@all_pets as an empty array
+  attr_reader :species
 
-    def initialize(name, species)
-        # Defines the constructor method with name and species parameters
+  # Creates a getter method for @species (no setter)
 
-        @name = name 
-        # Sets instance variable @name to the provided name argument
+  @@all_pets = []
+  # Initializes a class variable @@all_pets as an empty array
 
-        @species = species
-        # Sets instance variable @species to the provided species argument
+  def initialize(name, species)
+    # Defines the constructor method with name and species parameters
 
-        @@all_pets << self
-        # Adds the current instance of Pet (self) to the @@all_pets array
+    @name = name
+    # Sets instance variable @name to the provided name argument
 
-    end 
+    @species = species
+    # Sets instance variable @species to the provided species argument
 
-    def display_info 
-        # Defines an instance method display_info
+    @@all_pets << self
+    # Adds the current instance of Pet (self) to the @@all_pets array
+  end
 
-        puts "I am a #{@species} named #{@name}."
-        # Outputs a string with the pet's species and name
+  def method_missing(method_name, *_args)
+    "#{method_name} is not a recognized action for a #{species}."
+  end
 
-    end 
+  def display_info
+    # Defines an instance method display_info
 
-    def is_cat? 
-        # Defines an instance method is_cat?, which is a virtual attribute
+    puts "I am a #{@species} named #{@name}."
+    # Outputs a string with the pet's species and name
+  end
 
-        @species == 'cat'
-        # Returns true if the species of the pet is 'cat', otherwise false
+  def show_details; end
 
-    end 
+  alias show_details display_info
 
-    def self.list_all_pets
-        # Defines a class method list_all_pets
+  def is_cat?
+    # Defines an instance method is_cat?, which is a virtual attribute
 
-        @@all_pets.each do |pet|
-            # Iterates over each pet in the @@all_pets array
+    @species == 'cat'
+    # Returns true if the species of the pet is 'cat', otherwise false
+  end
 
-            puts "Pet #{pet.name}, Species: #{pet.species}"
-            # Outputs the name and species of each pet
+  def self.list_all_pets
+    # Defines a class method list_all_pets
 
-        end 
-    end 
+    @@all_pets.each do |pet|
+      # Iterates over each pet in the @@all_pets array
+
+      puts "Pet #{pet.name}, Species: #{pet.species}"
+      # Outputs the name and species of each pet
+    end
+  end
 end
